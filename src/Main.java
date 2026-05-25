@@ -22,6 +22,7 @@ public class Main {
             System.out.println("3 - Concluir tarefa");
             System.out.println("4 - Limpar tarefas concluidas");
             System.out.println("5 - Salvar e sair");
+            System.out.println("Escolha uma opção:");
 
             int opcao = scanner.nextInt();
             scanner.nextLine();

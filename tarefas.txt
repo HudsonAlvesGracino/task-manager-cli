@@ -1,0 +1,2 @@
+ID 2 | [] Fazer exercicios | 30 minutos
+ID 3 | [] Ler documentação | Ler documentação Spring Boot

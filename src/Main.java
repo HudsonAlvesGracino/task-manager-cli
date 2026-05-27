@@ -9,6 +9,7 @@ public class Main {
         TaskManager taskManager = new TaskManager();
         boolean parar = true;
         int idParaConcluir;
+        int idParaEditar;
 
         List<Task> tarefasSalvas = FileStorage.carregarTarefas();
 
@@ -20,8 +21,9 @@ public class Main {
             System.out.println("1 - Adicionar tarefa");
             System.out.println("2 - Listar tarefas");
             System.out.println("3 - Concluir tarefa");
-            System.out.println("4 - Limpar tarefas concluidas");
-            System.out.println("5 - Salvar e sair");
+            System.out.println("4 - Editar tarefa");
+            System.out.println("5 - Limpar tarefas concluidas");
+            System.out.println("6 - Salvar e sair");
             System.out.println("Escolha uma opção:");
 
             int opcao = scanner.nextInt();
@@ -65,11 +67,26 @@ public class Main {
                     break;
 
                 case 4:
+                    System.out.println("Digite o ID da tarefa que você quer editar");
+                    idParaEditar = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.println("Qual o novo titulo?");
+                    String novoTitulo = scanner.nextLine();
+                    System.out.println("Qual a nova descrição?");
+                    String novaDescricao = scanner.nextLine();
+                    System.out.println("Qual a nova prioridade?");
+                    String novaPrioridade = scanner.nextLine();
+                    novaPrioridade = novaPrioridade.toUpperCase();
+                    taskManager.editarTarefa(idParaEditar, novoTitulo,novaDescricao, Prioridade.valueOf(novaPrioridade));
+                    System.out.println("[Sucesso] você editou sua tarefa");
+                    break;
+
+                case 5:
                     taskManager.limparConcluidas();
                     System.out.println("[Sucesso] voce limpou as tarefas concluidas\n");
                     break;
 
-                case 5:
+                case 6:
                     parar = false;
                     FileStorage.salvarTarefas(taskManager.getTasks());
                     System.out.println("Salvando dados e finalizando sistema...");

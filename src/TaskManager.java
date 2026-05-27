@@ -19,6 +19,16 @@ public class TaskManager {
         return this.myTasks;
     }
 
+    public void editarTarefa(int ID, String novoTitulo, String novaDescricao, Prioridade novaPrioridade){
+        for (Task t : myTasks){
+            if (t.getId() == ID){
+                t.setTitulo(novoTitulo);
+                t.setDescricao(novaDescricao);
+                t.setPrioridade(novaPrioridade);
+            }
+        }
+    }
+
     public void concluirTarefa(int idProcurado) {
         for (Task t : myTasks) {
             if (t.getId() == idProcurado) {

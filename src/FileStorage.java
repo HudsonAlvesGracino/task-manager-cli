@@ -28,7 +28,8 @@ public class FileStorage {
                 int id = Integer.parseInt(partes[0].replace("ID ", "").trim());
                 String titulo = partes[1].replace("[] ", "").replace("[X] ", "").trim();
                 String descricao = partes[2].trim();
-                Task tarefa = new Task(id, titulo, descricao);
+                String prioridade = partes[3].replace("[", "").replace("]", "").trim();
+                Task tarefa = new Task(Prioridade.valueOf(prioridade), id, titulo, descricao);
                 if (linha.contains("[X]")){
                     tarefa.setEstaCompleto(true);
                 }

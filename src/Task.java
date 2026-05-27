@@ -1,13 +1,17 @@
 // classe task
 
+
 public class Task{
     private int id;
     private String titulo;
     private String descricao;
     private boolean estaCompleto = false;
+    Prioridade prioridade;
 
 
-    public Task(int id, String titulo, String descricao) {
+
+    public Task(Prioridade prioridade, int id, String titulo, String descricao) {
+        this.prioridade = prioridade;
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
@@ -45,11 +49,19 @@ public class Task{
         this.estaCompleto = estaCompleto;
     }
 
+    public Prioridade getPrioridade() {
+        return prioridade;
+    }
+
+    public void setPrioridade(Prioridade prioridade) {
+        this.prioridade = prioridade;
+    }
+
     @Override
     public String toString() {
         if (!estaCompleto){
-            return ("ID " + getId() + " | " + "[] " + getTitulo() + " | " + getDescricao());
+            return ("ID " + getId() + " | " + "[] " + getTitulo() + " | " + getDescricao() + " | " + "[" + getPrioridade() + "]" );
         } else
-            return ("ID " + getId() + " | " + "[X] " + getTitulo() + " | " + getDescricao());
+            return ("ID " + getId() + " | " + "[X] " + getTitulo() + " | " + getDescricao() +  " | " + "[" + getPrioridade() + "]" );
     }
 }

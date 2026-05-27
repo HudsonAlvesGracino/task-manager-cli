@@ -74,7 +74,7 @@ public class Main {
                     String novoTitulo = scanner.nextLine();
                     System.out.println("Qual a nova descrição?");
                     String novaDescricao = scanner.nextLine();
-                    System.out.println("Qual a nova prioridade?");
+                    System.out.println("Qual a nova prioridade? (Alta, Media, Baixa?)");
                     String novaPrioridade = scanner.nextLine();
                     novaPrioridade = novaPrioridade.toUpperCase();
                     taskManager.editarTarefa(idParaEditar, novoTitulo,novaDescricao, Prioridade.valueOf(novaPrioridade));

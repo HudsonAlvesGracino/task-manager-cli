@@ -24,12 +24,14 @@ public class FileStorage {
         try (BufferedReader reader = new BufferedReader(new FileReader("tarefas.txt"))) {
             String linha;
             while ((linha = reader.readLine())!= null){
+                if (linha.trim().isEmpty()) continue;
                 String[] partes = linha.split("\\|");
                 int id = Integer.parseInt(partes[0].replace("ID ", "").trim());
                 String titulo = partes[1].replace("[] ", "").replace("[X] ", "").trim();
                 String descricao = partes[2].trim();
-                String prioridade = partes[3].replace("[", "").replace("]", "").trim();
-                Task tarefa = new Task(Prioridade.valueOf(prioridade), id, titulo, descricao);
+                String prioridadeDeTexto = partes[3].replace("[", "").replace("]", "").trim().toUpperCase();
+                Prioridade prioridade = Prioridade.valueOf(prioridadeDeTexto);
+                Task tarefa = new Task(prioridade, id, titulo, descricao);
                 if (linha.contains("[X]")){
                     tarefa.setEstaCompleto(true);
                 }

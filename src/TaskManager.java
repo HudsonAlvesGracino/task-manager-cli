@@ -42,7 +42,7 @@ public class TaskManager {
         List<Task> filtroPorConcluida = new ArrayList<>();
         for (Task t: myTasks){
             if (t.isEstaCompleto()){
-                filtroPorConcluida().add(t);
+                filtroPorConcluida.add(t);
             }
         }
         return filtroPorConcluida;

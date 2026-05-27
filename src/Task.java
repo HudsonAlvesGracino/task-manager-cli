@@ -6,7 +6,7 @@ public class Task{
     private String titulo;
     private String descricao;
     private boolean estaCompleto = false;
-    Prioridade prioridade;
+    private Prioridade prioridade;
 
 
 

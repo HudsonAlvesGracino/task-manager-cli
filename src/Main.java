@@ -22,8 +22,9 @@ public class Main {
             System.out.println("2 - Listar tarefas");
             System.out.println("3 - Concluir tarefa");
             System.out.println("4 - Editar tarefa");
-            System.out.println("5 - Limpar tarefas concluidas");
-            System.out.println("6 - Salvar e sair");
+            System.out.println("5 - Filtrar tarefas");
+            System.out.println("6 - Limpar tarefas concluidas");
+            System.out.println("7 - Salvar e sair");
             System.out.println("Escolha uma opção:");
 
             int opcao = scanner.nextInt();
@@ -36,8 +37,7 @@ public class Main {
                     System.out.println("Escreva a descrição do seu projeto");
                     String descricao = scanner.nextLine();
                     System.out.println("Qual a importancia desse projeto? Alta, Media ou Baixa? ");
-                    String prioridade = scanner.nextLine();
-                    prioridade = prioridade.toUpperCase();
+                    Prioridade prioridade = ConsoleHelper.lerPrioridade(scanner);
                     List<Task> atuais = taskManager.getTasks();
                     int proximoId;
                     if (atuais.isEmpty()) {
@@ -46,7 +46,7 @@ public class Main {
                         Task ultimaTarefa = atuais.get(atuais.size() - 1);
                         proximoId = ultimaTarefa.getId() + 1;
                     }
-                    Task novaTarefa = new Task(Prioridade.valueOf(prioridade), proximoId, titulo, descricao);
+                    Task novaTarefa = new Task(prioridade, proximoId, titulo, descricao);
                     taskManager.addTasks(novaTarefa);
                     System.out.println("[Sucesso] Sua tarefa foi adicionada com sucesso\n");
                     break;
@@ -75,18 +75,42 @@ public class Main {
                     System.out.println("Qual a nova descrição?");
                     String novaDescricao = scanner.nextLine();
                     System.out.println("Qual a nova prioridade? (Alta, Media, Baixa?)");
-                    String novaPrioridade = scanner.nextLine();
-                    novaPrioridade = novaPrioridade.toUpperCase();
-                    taskManager.editarTarefa(idParaEditar, novoTitulo,novaDescricao, Prioridade.valueOf(novaPrioridade));
+                    Prioridade novaPrioridade = ConsoleHelper.lerPrioridade(scanner);
+                    taskManager.editarTarefa(idParaEditar, novoTitulo,novaDescricao, novaPrioridade);
                     System.out.println("[Sucesso] você editou sua tarefa");
                     break;
 
                 case 5:
+                    System.out.println("Por qual metodo voce quer filtrar?");
+                    System.out.println("1 - Status Concluida");
+                    System.out.println("2 - Prioridade");
+                    int opcaoFiltro = scanner.nextInt();
+                    scanner.nextLine();
+                    switch (opcaoFiltro){
+                        case 1:
+                            List<Task> tarefasConcluidas = taskManager.filtroPorConcluida();
+                            System.out.println("As suas tarefas concluidas são: ");
+                            for (Task t: tarefasConcluidas){
+                                System.out.println(t);
+                            }
+                            break;
+                        case 2:
+                            System.out.println("Qual a prioridade voce quer? ");
+                            Prioridade prioridadeEscolhida = ConsoleHelper.lerPrioridade(scanner);
+                            List<Task> tarefasPorPrioridade = taskManager.filtroPorPrioridade(prioridadeEscolhida);
+                            System.out.println("Essas são as tarefas de acordo com a prioridade:" + prioridadeEscolhida);
+                            for (Task t : tarefasPorPrioridade){
+                                System.out.println(t);
+                            }
+                            break;
+                    }
+                    break;
+                case 6:
                     taskManager.limparConcluidas();
                     System.out.println("[Sucesso] voce limpou as tarefas concluidas\n");
                     break;
 
-                case 6:
+                case 7:
                     parar = false;
                     FileStorage.salvarTarefas(taskManager.getTasks());
                     System.out.println("Salvando dados e finalizando sistema...");
